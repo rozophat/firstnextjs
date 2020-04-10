@@ -49,6 +49,7 @@ const Index = props => (
         box-shadow: 1px 2px 3px rgba(0,0,0,0.3);
         cursor: pointer;
         color: #880E4F;
+        width: 60%;
       }
       
       form{
