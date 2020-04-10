@@ -88,10 +88,413 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./components/AddBook.js":
+/*!*******************************!*\
+  !*** ./components/AddBook.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-apollo */ "react-apollo");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _queries_queries__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../queries/queries */ "./queries/queries.js");
+var _jsxFileName = "/Users/phatnguyen/Projects/NextJsApp/components/AddBook.js";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+
+
+class AddBook extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      genre: '',
+      authorId: 0
+    };
+  }
+
+  displayAuthors() {
+    var data = this.props.getAuthorsQuery;
+
+    if (data.loading) {
+      return __jsx("option", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 19,
+          columnNumber: 17
+        }
+      }, "Loading Authors...");
+    } else {
+      return data.authors.map(author => {
+        return __jsx("option", {
+          key: author.id,
+          value: author.id,
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 25,
+            columnNumber: 17
+          }
+        }, author.name);
+      });
+    }
+  }
+
+  submitForm(e) {
+    e.preventDefault();
+    this.props.addBookMutation({
+      variables: {
+        name: this.state.name,
+        genre: this.state.genre,
+        authorId: parseInt(this.state.authorId)
+      },
+      refetchQueries: [{
+        query: _queries_queries__WEBPACK_IMPORTED_MODULE_3__["getBooksQuery"]
+      }]
+    });
+  }
+
+  render() {
+    return __jsx("form", {
+      id: "add-book",
+      onSubmit: this.submitForm.bind(this),
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 43,
+        columnNumber: 13
+      }
+    }, __jsx("div", {
+      className: "field",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 44,
+        columnNumber: 17
+      }
+    }, __jsx("label", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 45,
+        columnNumber: 21
+      }
+    }, "Book name:"), __jsx("input", {
+      type: "text",
+      onChange: e => this.setState({
+        name: e.target.value
+      }),
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 46,
+        columnNumber: 21
+      }
+    })), __jsx("div", {
+      className: "field",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 48,
+        columnNumber: 17
+      }
+    }, __jsx("label", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 49,
+        columnNumber: 21
+      }
+    }, "Genre:"), __jsx("input", {
+      type: "text",
+      onChange: e => this.setState({
+        genre: e.target.value
+      }),
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 50,
+        columnNumber: 21
+      }
+    })), __jsx("div", {
+      className: "field",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 52,
+        columnNumber: 17
+      }
+    }, __jsx("label", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 53,
+        columnNumber: 21
+      }
+    }, "Author:"), __jsx("select", {
+      onChange: e => this.setState({
+        authorId: e.target.value
+      }),
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 54,
+        columnNumber: 21
+      }
+    }, __jsx("option", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 55,
+        columnNumber: 25
+      }
+    }, "Select author"), this.displayAuthors())), __jsx("button", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 59,
+        columnNumber: 17
+      }
+    }, "+"));
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(lodash__WEBPACK_IMPORTED_MODULE_2__["flowRight"])(Object(react_apollo__WEBPACK_IMPORTED_MODULE_1__["graphql"])(_queries_queries__WEBPACK_IMPORTED_MODULE_3__["getAuthorsQuery"], {
+  name: "getAuthorsQuery"
+}), Object(react_apollo__WEBPACK_IMPORTED_MODULE_1__["graphql"])(_queries_queries__WEBPACK_IMPORTED_MODULE_3__["addBookMutation"], {
+  name: "addBookMutation"
+}))(AddBook));
+
+/***/ }),
+
+/***/ "./components/BookDetails.js":
+/*!***********************************!*\
+  !*** ./components/BookDetails.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-apollo */ "react-apollo");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _queries_queries__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../queries/queries */ "./queries/queries.js");
+var _jsxFileName = "/Users/phatnguyen/Projects/NextJsApp/components/BookDetails.js";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+
+class BookDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
+  displayBookDetails() {
+    const {
+      book
+    } = this.props.data;
+
+    if (book) {
+      return __jsx("div", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 11,
+          columnNumber: 17
+        }
+      }, __jsx("h2", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 12,
+          columnNumber: 21
+        }
+      }, book.name), __jsx("p", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 13,
+          columnNumber: 21
+        }
+      }, book.genre), __jsx("p", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 14,
+          columnNumber: 21
+        }
+      }, book.author.name), __jsx("p", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 15,
+          columnNumber: 21
+        }
+      }, "All books by this author:"), __jsx("ul", {
+        className: "other-books",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 16,
+          columnNumber: 21
+        }
+      }, book.author.books.map(item => {
+        return __jsx("li", {
+          key: item.id,
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 18,
+            columnNumber: 36
+          }
+        }, item.name);
+      })));
+    } else {
+      return __jsx("div", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 24,
+          columnNumber: 21
+        }
+      }, "No book selected...");
+    }
+  }
+
+  render() {
+    return __jsx("div", {
+      id: "book-details",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 29,
+        columnNumber: 13
+      }
+    }, this.displayBookDetails());
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_apollo__WEBPACK_IMPORTED_MODULE_1__["graphql"])(_queries_queries__WEBPACK_IMPORTED_MODULE_2__["getBookQuery"], {
+  options: props => {
+    return {
+      variables: {
+        id: props.bookId
+      }
+    };
+  }
+})(BookDetails));
+
+/***/ }),
+
+/***/ "./components/BookList.js":
+/*!********************************!*\
+  !*** ./components/BookList.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-apollo */ "react-apollo");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _queries_queries__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../queries/queries */ "./queries/queries.js");
+/* harmony import */ var _BookDetails__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BookDetails */ "./components/BookDetails.js");
+var _jsxFileName = "/Users/phatnguyen/Projects/NextJsApp/components/BookList.js";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+ // components
+
+
+
+class BookList extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: null
+    };
+  }
+
+  displayBooks() {
+    var data = this.props.data;
+
+    if (data.loading) {
+      return __jsx("div", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 19,
+          columnNumber: 17
+        }
+      }, "Loading Books...");
+    } else {
+      return data.books.map(book => {
+        return __jsx("li", {
+          key: book.id,
+          onClick: e => this.setState({
+            selected: book.id
+          }),
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 25,
+            columnNumber: 17
+          }
+        }, book.name, " - ", book.genre);
+      });
+    }
+  }
+
+  render() {
+    console.log(this.props);
+    return __jsx("div", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 33,
+        columnNumber: 13
+      }
+    }, __jsx("ul", {
+      id: "book-list",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 34,
+        columnNumber: 17
+      }
+    }, this.displayBooks()), __jsx(_BookDetails__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      bookId: this.state.selected,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 37,
+        columnNumber: 17
+      }
+    }));
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_apollo__WEBPACK_IMPORTED_MODULE_1__["graphql"])(_queries_queries__WEBPACK_IMPORTED_MODULE_2__["getBooksQuery"])(BookList));
+
+/***/ }),
 
 /***/ "./components/Header.js":
 /*!******************************!*\
@@ -1886,75 +2289,90 @@ module.exports = __webpack_require__(/*! ./dist/client/link */ "./node_modules/n
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_MyLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/MyLayout */ "./components/MyLayout.js");
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! isomorphic-unfetch */ "isomorphic-unfetch");
-/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-jsx/style */ "styled-jsx/style");
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_MyLayout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/MyLayout */ "./components/MyLayout.js");
+/* harmony import */ var _components_BookList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/BookList */ "./components/BookList.js");
+/* harmony import */ var _components_AddBook__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/AddBook */ "./components/AddBook.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! isomorphic-unfetch */ "isomorphic-unfetch");
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! apollo-boost */ "apollo-boost");
+/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(apollo_boost__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-apollo */ "react-apollo");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_8__);
 var _jsxFileName = "/Users/phatnguyen/Projects/NextJsApp/pages/index.js";
 
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
 
 
 
-const Index = props => __jsx(_components_MyLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+
+
+ // apollo client setup
+
+const client = new apollo_boost__WEBPACK_IMPORTED_MODULE_7___default.a({
+  uri: 'http://localhost:3001/graph'
+});
+
+const Index = props => __jsx(react_apollo__WEBPACK_IMPORTED_MODULE_8__["ApolloProvider"], {
+  client: client,
   __self: undefined,
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 6,
+    lineNumber: 16,
     columnNumber: 3
   }
-}, __jsx("h1", {
+}, __jsx(_components_MyLayout__WEBPACK_IMPORTED_MODULE_2__["default"], {
   __self: undefined,
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 7,
+    lineNumber: 17,
     columnNumber: 5
   }
-}, "Batman TV Shows"), __jsx("ul", {
+}, __jsx(_components_BookList__WEBPACK_IMPORTED_MODULE_3__["default"], {
   __self: undefined,
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 8,
-    columnNumber: 5
+    lineNumber: 18,
+    columnNumber: 7
   }
-}, props.shows.map(show => __jsx("li", {
-  key: show.id,
+}), __jsx(_components_AddBook__WEBPACK_IMPORTED_MODULE_4__["default"], {
   __self: undefined,
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 10,
-    columnNumber: 9
+    lineNumber: 19,
+    columnNumber: 7
   }
-}, __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-  href: "/p/[id]",
-  as: `/p/${show.id}`,
-  __self: undefined,
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 11,
-    columnNumber: 11
-  }
-}, __jsx("a", {
-  __self: undefined,
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 12,
-    columnNumber: 13
-  }
-}, show.name))))));
+})), __jsx(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
+  id: "2679520877",
+  __self: undefined
+}, "body{background:#eee;font-family:'Nunito SemiBold';}#main h1{color:#444;text-align:center;}#main{padding:0px;box-sizing:border-box;width:60%;height:100%;}#book-list{padding:0;}#book-list li{display:inline-block;margin:12px;padding:10px;border-radius:4px;border:1px solid #880E4F;box-shadow:1px 2px 3px rgba(0,0,0,0.3);cursor:pointer;color:#880E4F;}form{background:#fff;padding:20px;position:fixed;left:0;bottom:0;width:400px;}form .field{display:grid;grid-template-columns:1fr 1fr;grid-gap:10px;}form label{text-align:right;padding:6px;}form input,form select{margin:4px 0;padding:6px;box-sizing:border-box;}form button{color:#fff;font-size:2em;background:#AD1457;border:0;padding:0 10px;border-radius:50%;cursor:pointer;position:absolute;bottom:10px;left:10px;}#book-details{position:fixed;top:0;right:0;width:40%;height:100%;background:#AD1457;padding:30px;overflow:auto;box-shadow:-2px -3px 5px rgba(0,0,0,0.3);box-sizing:border-box;color:#fff;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9waGF0bmd1eWVuL1Byb2plY3RzL05leHRKc0FwcC9wYWdlcy9pbmRleC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFvQnVCLEFBR3lCLEFBS0wsQUFLQyxBQU9GLEFBSVcsQUFXTCxBQVNILEFBTUksQUFLSixBQU1GLEFBYUksVUFyRGpCLENBWm9CLEFBcURKLENBaERRLENBK0JRLEFBV2xCLEVBbUJOLENBdkV3QixBQWdDakIsQ0FlRCxJQTFCQSxBQW1ESixJQW5CYyxBQU1ILElBckRyQixBQTJCaUIsQUFlakIsQUF5QlksSUFuREcsQ0FYSCxLQStERSxJQWhDRSxDQTlCRixBQXNCTCxBQTBCRSxFQTNEWCxBQXNCb0IsQ0ErQnBCLElBbkJXLEFBd0NVLEVBZEosR0FoRGpCLENBOEJBLEdBUGMsSUFaYSxJQXNDUCxFQWNMLEVBdkNmLFdBd0NnQixHQWRDLEdBdEN3QixRQXFERSxJQWR2QixrQkFDTixTQXZDRyxHQXdDTCxPQWFZLEdBWnhCLEVBeENnQixjQUNoQixHQW9EYSxXQUNiIiwiZmlsZSI6Ii9Vc2Vycy9waGF0bmd1eWVuL1Byb2plY3RzL05leHRKc0FwcC9wYWdlcy9pbmRleC5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBMYXlvdXQgZnJvbSAnLi4vY29tcG9uZW50cy9NeUxheW91dCc7XG5pbXBvcnQgQm9va0xpc3QgZnJvbSAnLi4vY29tcG9uZW50cy9Cb29rTGlzdCc7XG5pbXBvcnQgQWRkQm9vayBmcm9tICcuLi9jb21wb25lbnRzL0FkZEJvb2snO1xuaW1wb3J0IExpbmsgZnJvbSAnbmV4dC9saW5rJztcbmltcG9ydCBmZXRjaCBmcm9tICdpc29tb3JwaGljLXVuZmV0Y2gnO1xuaW1wb3J0IEFwb2xsb0NsaWVudCBmcm9tICdhcG9sbG8tYm9vc3QnO1xuaW1wb3J0IHsgQXBvbGxvUHJvdmlkZXIgfSBmcm9tICdyZWFjdC1hcG9sbG8nO1xuXG5cbi8vIGFwb2xsbyBjbGllbnQgc2V0dXBcbmNvbnN0IGNsaWVudCA9IG5ldyBBcG9sbG9DbGllbnQoe1xuICB1cmk6ICdodHRwOi8vbG9jYWxob3N0OjMwMDEvZ3JhcGgnXG59KTtcblxuY29uc3QgSW5kZXggPSBwcm9wcyA9PiAoXG4gIDxBcG9sbG9Qcm92aWRlciBjbGllbnQ9e2NsaWVudH0+XG4gICAgPExheW91dD5cbiAgICAgIDxCb29rTGlzdC8+XG4gICAgICA8QWRkQm9vay8+XG4gICAgPC9MYXlvdXQ+XG4gICAgPHN0eWxlIGpzeCBnbG9iYWw+e2BcbiAgICAgIGJvZHl7XG4gICAgICAgIGJhY2tncm91bmQ6ICNlZWU7XG4gICAgICAgIGZvbnQtZmFtaWx5OiAnTnVuaXRvIFNlbWlCb2xkJztcbiAgICAgIH1cbiAgICAgIFxuICAgICAgI21haW4gaDF7XG4gICAgICAgIGNvbG9yOiAjNDQ0O1xuICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgICB9XG4gICAgICBcbiAgICAgICNtYWlue1xuICAgICAgICBwYWRkaW5nOiAwcHg7XG4gICAgICAgIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XG4gICAgICAgIHdpZHRoOiA2MCU7XG4gICAgICAgIGhlaWdodDogMTAwJTtcbiAgICAgIH1cbiAgICAgIFxuICAgICAgI2Jvb2stbGlzdHtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgIH1cbiAgICAgIFxuICAgICAgI2Jvb2stbGlzdCBsaXtcbiAgICAgICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgICAgICBtYXJnaW46IDEycHg7XG4gICAgICAgIHBhZGRpbmc6IDEwcHg7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgIzg4MEU0RjtcbiAgICAgICAgYm94LXNoYWRvdzogMXB4IDJweCAzcHggcmdiYSgwLDAsMCwwLjMpO1xuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgICAgIGNvbG9yOiAjODgwRTRGO1xuICAgICAgfVxuICAgICAgXG4gICAgICBmb3Jte1xuICAgICAgICBiYWNrZ3JvdW5kOiAjZmZmO1xuICAgICAgICBwYWRkaW5nOiAyMHB4O1xuICAgICAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgICAgIGxlZnQ6IDA7XG4gICAgICAgIGJvdHRvbTogMDtcbiAgICAgICAgd2lkdGg6IDQwMHB4O1xuICAgICAgfVxuICAgICAgXG4gICAgICBmb3JtIC5maWVsZHtcbiAgICAgICAgZGlzcGxheTogZ3JpZDtcbiAgICAgICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgMWZyO1xuICAgICAgICBncmlkLWdhcDogMTBweDtcbiAgICAgIH1cbiAgICAgIFxuICAgICAgZm9ybSBsYWJlbHtcbiAgICAgICAgdGV4dC1hbGlnbjogcmlnaHQ7XG4gICAgICAgIHBhZGRpbmc6IDZweDtcbiAgICAgIH1cbiAgICAgIFxuICAgICAgZm9ybSBpbnB1dCwgZm9ybSBzZWxlY3R7XG4gICAgICAgIG1hcmdpbjogNHB4IDA7XG4gICAgICAgIHBhZGRpbmc6IDZweDtcbiAgICAgICAgYm94LXNpemluZzogYm9yZGVyLWJveDtcbiAgICAgIH1cbiAgICAgIFxuICAgICAgZm9ybSBidXR0b257XG4gICAgICAgIGNvbG9yOiAjZmZmO1xuICAgICAgICBmb250LXNpemU6IDJlbTtcbiAgICAgICAgYmFja2dyb3VuZDogI0FEMTQ1NztcbiAgICAgICAgYm9yZGVyOiAwO1xuICAgICAgICBwYWRkaW5nOiAwIDEwcHg7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICAgIGJvdHRvbTogMTBweDtcbiAgICAgICAgbGVmdDogMTBweDtcbiAgICAgIH1cbiAgICAgIFxuICAgICAgI2Jvb2stZGV0YWlsc3tcbiAgICAgICAgcG9zaXRpb246IGZpeGVkO1xuICAgICAgICB0b3A6IDA7XG4gICAgICAgIHJpZ2h0OiAwO1xuICAgICAgICB3aWR0aDogNDAlO1xuICAgICAgICBoZWlnaHQ6IDEwMCU7XG4gICAgICAgIGJhY2tncm91bmQ6ICNBRDE0NTc7XG4gICAgICAgIHBhZGRpbmc6IDMwcHg7XG4gICAgICAgIG92ZXJmbG93OiBhdXRvO1xuICAgICAgICBib3gtc2hhZG93OiAtMnB4IC0zcHggNXB4IHJnYmEoMCwwLDAsMC4zKTtcbiAgICAgICAgYm94LXNpemluZzogYm9yZGVyLWJveDtcbiAgICAgICAgY29sb3I6ICNmZmY7XG4gICAgICB9XG4gICAgYH08L3N0eWxlPlxuICA8L0Fwb2xsb1Byb3ZpZGVyPlxuICAvLyA8TGF5b3V0PlxuICAvLyAgIDxoMT5CYXRtYW4gVFYgU2hvd3M8L2gxPlxuICAvLyAgIDx1bD5cbiAgLy8gICAgIHtwcm9wcy5zaG93cy5tYXAoc2hvdyA9PiAoXG4gIC8vICAgICAgIDxsaSBrZXk9e3Nob3cuaWR9PlxuICAvLyAgICAgICAgIDxMaW5rIGhyZWY9XCIvcC9baWRdXCIgYXM9e2AvcC8ke3Nob3cuaWR9YH0+XG4gIC8vICAgICAgICAgICA8YT57c2hvdy5uYW1lfTwvYT5cbiAgLy8gICAgICAgICA8L0xpbms+XG4gIC8vICAgICAgIDwvbGk+XG4gIC8vICAgICApKX1cbiAgLy8gICA8L3VsPlxuICAvLyA8L0xheW91dD5cbik7XG5cbi8vIEluZGV4LmdldEluaXRpYWxQcm9wcyA9IGFzeW5jIGZ1bmN0aW9uKCkge1xuLy8gICBjb25zdCByZXMgPSBhd2FpdCBmZXRjaCgnaHR0cHM6Ly9hcGkudHZtYXplLmNvbS9zZWFyY2gvc2hvd3M/cT1iYXRtYW4nKTtcbi8vICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlcy5qc29uKCk7XG5cbi8vICAgY29uc29sZS5sb2coYFNob3cgZGF0YSBmZXRjaGVkLiBDb3VudDogJHtkYXRhLmxlbmd0aH1gKTtcblxuLy8gICByZXR1cm4ge1xuLy8gICAgIHNob3dzOiBkYXRhLm1hcChlbnRyeSA9PiBlbnRyeS5zaG93KVxuLy8gICB9O1xuLy8gfTtcblxuZXhwb3J0IGRlZmF1bHQgSW5kZXg7XG5cbi8vIGltcG9ydCB7IHVzZVJvdXRlciB9IGZyb20gJ25leHQvcm91dGVyJztcbi8vIGltcG9ydCB1c2VTV1IgZnJvbSAnc3dyJztcblxuLy8gZnVuY3Rpb24gZmV0Y2hlcih1cmwpIHtcbi8vICAgcmV0dXJuIGZldGNoKHVybCkudGhlbihyID0+IHIuanNvbigpKTtcbi8vIH1cblxuLy8gZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gSW5kZXgoKSB7XG4vLyAgIGNvbnN0IHsgcXVlcnkgfSA9IHVzZVJvdXRlcigpO1xuLy8gICBjb25zdCB7IGRhdGEsIGVycm9yIH0gPSB1c2VTV1IoXG4vLyAgICAgYC9hcGkvcmFuZG9tUXVvdGUke3F1ZXJ5LmF1dGhvciA/ICc/YXV0aG9yPScgKyBxdWVyeS5hdXRob3IgOiAnJ31gLFxuLy8gICAgIGZldGNoZXJcbi8vICAgKTtcbi8vICAgLy8gVGhlIGZvbGxvd2luZyBsaW5lIGhhcyBvcHRpb25hbCBjaGFpbmluZywgYWRkZWQgaW4gTmV4dC5qcyB2OS4xLjUsXG4vLyAgIC8vIGlzIHRoZSBzYW1lIGFzIGBkYXRhICYmIGRhdGEuYXV0aG9yYFxuLy8gICBjb25zdCBhdXRob3IgPSBkYXRhPy5hdXRob3I7XG4vLyAgIGxldCBxdW90ZSA9IGRhdGE/LnF1b3RlO1xuXG4vLyAgIGlmICghZGF0YSkgcXVvdGUgPSAnTG9hZGluZy4uLic7XG4vLyAgIGlmIChlcnJvcikgcXVvdGUgPSAnRmFpbGVkIHRvIGZldGNoIHRoZSBxdW90ZS4nO1xuXG4vLyAgIHJldHVybiAoXG4vLyAgICAgPG1haW4gY2xhc3NOYW1lPVwiY2VudGVyXCI+XG4vLyAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInF1b3RlXCI+e3F1b3RlfTwvZGl2PlxuLy8gICAgICAge2F1dGhvciAmJiA8c3BhbiBjbGFzc05hbWU9XCJhdXRob3JcIj4tIHthdXRob3J9PC9zcGFuPn1cblxuLy8gICAgICAgPHN0eWxlIGpzeD57YFxuLy8gICAgICAgICBtYWluIHtcbi8vICAgICAgICAgICB3aWR0aDogOTAlO1xuLy8gICAgICAgICAgIG1heC13aWR0aDogOTAwcHg7XG4vLyAgICAgICAgICAgbWFyZ2luOiAzMDBweCBhdXRvO1xuLy8gICAgICAgICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbi8vICAgICAgICAgfVxuLy8gICAgICAgICAucXVvdGUge1xuLy8gICAgICAgICAgIGZvbnQtZmFtaWx5OiBjdXJzaXZlO1xuLy8gICAgICAgICAgIGNvbG9yOiAjZTI0M2RlO1xuLy8gICAgICAgICAgIGZvbnQtc2l6ZTogMjRweDtcbi8vICAgICAgICAgICBwYWRkaW5nLWJvdHRvbTogMTBweDtcbi8vICAgICAgICAgfVxuLy8gICAgICAgICAuYXV0aG9yIHtcbi8vICAgICAgICAgICBmb250LWZhbWlseTogc2Fucy1zZXJpZjtcbi8vICAgICAgICAgICBjb2xvcjogIzU1OTgzNDtcbi8vICAgICAgICAgICBmb250LXNpemU6IDIwcHg7XG4vLyAgICAgICAgIH1cbi8vICAgICAgIGB9PC9zdHlsZT5cbi8vICAgICA8L21haW4+XG4vLyAgICk7XG4vLyB9XG5cbiJdfQ== */\n/*@ sourceURL=/Users/phatnguyen/Projects/NextJsApp/pages/index.js */")) // <Layout>
+//   <h1>Batman TV Shows</h1>
+//   <ul>
+//     {props.shows.map(show => (
+//       <li key={show.id}>
+//         <Link href="/p/[id]" as={`/p/${show.id}`}>
+//           <a>{show.name}</a>
+//         </Link>
+//       </li>
+//     ))}
+//   </ul>
+// </Layout>
+; // Index.getInitialProps = async function() {
+//   const res = await fetch('https://api.tvmaze.com/search/shows?q=batman');
+//   const data = await res.json();
+//   console.log(`Show data fetched. Count: ${data.length}`);
+//   return {
+//     shows: data.map(entry => entry.show)
+//   };
+// };
 
-Index.getInitialProps = async function () {
-  const res = await isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3___default()('https://api.tvmaze.com/search/shows?q=batman');
-  const data = await res.json();
-  console.log(`Show data fetched. Count: ${data.length}`);
-  return {
-    shows: data.map(entry => entry.show)
-  };
-};
 
 /* harmony default export */ __webpack_exports__["default"] = (Index); // import { useRouter } from 'next/router';
 // import useSWR from 'swr';
@@ -2002,7 +2420,70 @@ Index.getInitialProps = async function () {
 
 /***/ }),
 
-/***/ 5:
+/***/ "./queries/queries.js":
+/*!****************************!*\
+  !*** ./queries/queries.js ***!
+  \****************************/
+/*! exports provided: getAuthorsQuery, getBooksQuery, addBookMutation, getBookQuery */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAuthorsQuery", function() { return getAuthorsQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBooksQuery", function() { return getBooksQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addBookMutation", function() { return addBookMutation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBookQuery", function() { return getBookQuery; });
+/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! apollo-boost */ "apollo-boost");
+/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(apollo_boost__WEBPACK_IMPORTED_MODULE_0__);
+
+const getAuthorsQuery = apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"]`
+{
+    authors{
+        id
+        name
+    }
+}
+`;
+const getBooksQuery = apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"]`
+{
+    books{
+        id
+        name
+        genre
+    }
+}
+`;
+const getBookQuery = apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"]`
+    query GetBook($id: ID){
+        book(id: $id) {
+            id
+            name
+            genre
+            author {
+                id
+                name
+                age
+                books {
+                    name
+                    id
+                }
+            }
+        }
+    }
+`;
+const addBookMutation = apollo_boost__WEBPACK_IMPORTED_MODULE_0__["gql"]`
+    mutation($name: String!, $genre: String!, $authorId: Int!){
+        addBook(name: $name, genre: $genre, authorId: $authorId){
+            name
+            id
+        }
+    }
+`;
+
+
+/***/ }),
+
+/***/ 3:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/
@@ -2014,6 +2495,17 @@ module.exports = __webpack_require__(/*! /Users/phatnguyen/Projects/NextJsApp/pa
 
 /***/ }),
 
+/***/ "apollo-boost":
+/*!*******************************!*\
+  !*** external "apollo-boost" ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("apollo-boost");
+
+/***/ }),
+
 /***/ "isomorphic-unfetch":
 /*!*************************************!*\
   !*** external "isomorphic-unfetch" ***!
@@ -2022,6 +2514,17 @@ module.exports = __webpack_require__(/*! /Users/phatnguyen/Projects/NextJsApp/pa
 /***/ (function(module, exports) {
 
 module.exports = require("isomorphic-unfetch");
+
+/***/ }),
+
+/***/ "lodash":
+/*!*************************!*\
+  !*** external "lodash" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("lodash");
 
 /***/ }),
 
@@ -2058,6 +2561,17 @@ module.exports = require("react");
 
 /***/ }),
 
+/***/ "react-apollo":
+/*!*******************************!*\
+  !*** external "react-apollo" ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("react-apollo");
+
+/***/ }),
+
 /***/ "react-is":
 /*!***************************!*\
   !*** external "react-is" ***!
@@ -2066,6 +2580,17 @@ module.exports = require("react");
 /***/ (function(module, exports) {
 
 module.exports = require("react-is");
+
+/***/ }),
+
+/***/ "styled-jsx/style":
+/*!***********************************!*\
+  !*** external "styled-jsx/style" ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("styled-jsx/style");
 
 /***/ }),
 

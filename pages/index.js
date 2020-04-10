@@ -1,32 +1,134 @@
 import Layout from '../components/MyLayout';
+import BookList from '../components/BookList';
+import AddBook from '../components/AddBook';
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
+
+
+// apollo client setup
+const client = new ApolloClient({
+  uri: 'https://firstnode-server.rozophat.now.sh/graph'
+});
 
 const Index = props => (
-  <Layout>
-    <h1>Batman TV Shows</h1>
-    <ul>
-      {props.shows.map(show => (
-        <li key={show.id}>
-          <Link href="/p/[id]" as={`/p/${show.id}`}>
-            <a>{show.name}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  </Layout>
+  <ApolloProvider client={client}>
+    <Layout>
+      <BookList/>
+      <AddBook/>
+    </Layout>
+    <style jsx global>{`
+      body{
+        background: #eee;
+        font-family: 'Nunito SemiBold';
+      }
+      
+      #main h1{
+        color: #444;
+        text-align: center;
+      }
+      
+      #main{
+        padding: 0px;
+        box-sizing: border-box;
+        width: 60%;
+        height: 100%;
+      }
+      
+      #book-list{
+        padding: 0;
+      }
+      
+      #book-list li{
+        display: inline-block;
+        margin: 12px;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #880E4F;
+        box-shadow: 1px 2px 3px rgba(0,0,0,0.3);
+        cursor: pointer;
+        color: #880E4F;
+      }
+      
+      form{
+        background: #fff;
+        padding: 20px;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 400px;
+      }
+      
+      form .field{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px;
+      }
+      
+      form label{
+        text-align: right;
+        padding: 6px;
+      }
+      
+      form input, form select{
+        margin: 4px 0;
+        padding: 6px;
+        box-sizing: border-box;
+      }
+      
+      form button{
+        color: #fff;
+        font-size: 2em;
+        background: #AD1457;
+        border: 0;
+        padding: 0 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+      }
+      
+      #book-details{
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 40%;
+        height: 100%;
+        background: #AD1457;
+        padding: 30px;
+        overflow: auto;
+        box-shadow: -2px -3px 5px rgba(0,0,0,0.3);
+        box-sizing: border-box;
+        color: #fff;
+      }
+    `}</style>
+  </ApolloProvider>
+  // <Layout>
+  //   <h1>Batman TV Shows</h1>
+  //   <ul>
+  //     {props.shows.map(show => (
+  //       <li key={show.id}>
+  //         <Link href="/p/[id]" as={`/p/${show.id}`}>
+  //           <a>{show.name}</a>
+  //         </Link>
+  //       </li>
+  //     ))}
+  //   </ul>
+  // </Layout>
 );
 
-Index.getInitialProps = async function() {
-  const res = await fetch('https://api.tvmaze.com/search/shows?q=batman');
-  const data = await res.json();
+// Index.getInitialProps = async function() {
+//   const res = await fetch('https://api.tvmaze.com/search/shows?q=batman');
+//   const data = await res.json();
 
-  console.log(`Show data fetched. Count: ${data.length}`);
+//   console.log(`Show data fetched. Count: ${data.length}`);
 
-  return {
-    shows: data.map(entry => entry.show)
-  };
-};
+//   return {
+//     shows: data.map(entry => entry.show)
+//   };
+// };
 
 export default Index;
 
